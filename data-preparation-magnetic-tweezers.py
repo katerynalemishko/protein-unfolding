@@ -13,7 +13,6 @@
 # 
 # For example, as you can see in the output below, points number 12 and number 16 are two measured extensions of the protein, 16.355019 nm and 6.418248 nm, and these two measurements were done when time = 20701.041016 sec (point number 14) and time = 20701.042969 sec (point number 18) respectively.
 
-# In[1]:
 
 
 import numpy as np
@@ -36,7 +35,6 @@ df.head(20)
 # 
 # Note, that these values of extension are relative to some initial extension in nm, so in principle they can be negative. Obviously, the 800 nm difference between the initial values of the extension and the ones we observe towards the end of the experiment does not make sense. This change of extension is due to the fact that the experiment got disrupted, and all the data starting from that moment is not representative.
 
-# In[2]:
 
 
 import matplotlib.pyplot as plt
@@ -66,8 +64,6 @@ plt.xlabel('points')
 # In my opinion, it is very difficult to work with a data frame that contains values corresponding to different types of parameters stored in the same column.
 # 
 # To make the data more comfortable to work with, we can create a new data frame with four columns, each of them containing the values of the corresponding parameter.
-
-# In[4]:
 
 
 new_n_points=round(Nmpnts/4)# calculation the number of rows in the new data frame
@@ -115,7 +111,6 @@ dat.head(10)
 # 
 # Let's take a look at the first 20 seconds of the experiment:
 
-# In[5]:
 
 
 #Setting the interval of the data we want to plot
@@ -149,11 +144,9 @@ fig.subplots_adjust(hspace=0)
 # When the protein unfolds, we observe an increment in extension, when the protein folds back, we see the protein's extension shorten to the previous level. Thus, at 10 pN, the protein is found in the equilibrium between these two states: folded and unfolded.
 
 # 
-# The data we are working with here does not have any drift, i.e. the measured extension signal is flat. However, this not always the case. In many cases, for the reasons explained here (article), the extension recorded during an experiment drifts (it is consistently over- or underestimated, so the extension signal looks positively or negatively tilted).
+# The data we are working with here does not have any drift, i.e. the measured extension signal is flat. However, this not always the case. In many cases, for the reasons explained here (DOI: 10.1146/annurev-biophys-122311-100544), the extension recorded during an experiment drifts (it is consistently over- or underestimated, so the extension signal looks positively or negatively tilted).
 # 
 # Now I will simulate a positive drift of the extension data from our experiment by tilting the ‘extension’ column from our ‘dat’ data frame and I will create a new data frame with the simulated  drifted extension data instead of the original extension data.
-
-# In[7]:
 
 
 dat_drift=dat.drop(['extension'],axis=1)
@@ -166,8 +159,6 @@ dat_drift.head(10)
 
 # Look at the plot below. The extension signal is tilted.
 
-# In[8]:
-
 
 plt.plot(dat_drift['time'],dat_drift['simulated_drifted_extension'])
 plt.ylabel('extension (nm)')
@@ -179,7 +170,6 @@ plt.xlabel('time (s)')
 # 
 # To find the velocity of the extension drift, we will fit this data with a linear model kx+b, where x is time. The coefficient k is the velocity of the drift and is the tangents of the angle between the drift trend and the horizontal axis. 
 
-# In[9]:
 
 
 import statsmodels.formula.api as sm 
@@ -195,7 +185,6 @@ print("parameter b: " + str(parameters_m_drift[0])+"   parameter k: "+ str(param
 
 # Let me plot the obtained linear model. As you can see, it describes quite accurately the drift of the extension. 
 
-# In[10]:
 
 
 #Here I simulate the line that represents our linear model
@@ -211,7 +200,6 @@ plt.xlabel('time (s)')
 
 # Now, knowing the velocity of the drift, we can corrected the observed extension data.
 
-# In[11]:
 
 
 #Creating a new data frame for the corrected extension data
@@ -226,8 +214,6 @@ dat_corrected.head()
 
 # Let me plot the corrected data to check how it looks like.
 
-# In[12]:
-
 
 #Plotting the corrected extension vs. time
 plt.plot(dat_corrected['time'],dat_corrected['drift_corrected'])
@@ -235,4 +221,4 @@ plt.ylabel('extension (nm)')
 plt.xlabel('time (s)')
 
 
-# Yo can see that we obtained a flat signal without any drift. Now we can proceed to the data analysis.
+#You can see that we obtained a flat signal without any drift. Now we can proceed to the data analysis.
