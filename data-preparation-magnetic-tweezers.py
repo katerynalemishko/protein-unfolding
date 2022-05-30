@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# Here I will show how I process raw experimental data stored in binary files, containing millions of data points. For simplicity, I will use a file containing over 10 million data points, which were recorded during approximately 35 minutes. However, a typical magnetic tweezers experiment can last for several days, so the files I usually need to process are much bigger than the one I used here.
+# Here I will show how I process raw experimental data stored in binary files, containing millions of data points. For simplicity, I will use a file containing over 10 million data points, which were recorded during approximately 35 minutes. However, a typical magnetic tweezers experiment can last for several hours, so the files I usually need to process are much bigger than the one I used here.
 # 
 # During a typical magnetic tweezers experiment, four parameters are recorded: the extension of the protein (in nm), the force applied to the protein (in pN), the absolute time (in s) and the position of the magnet.
 # 
